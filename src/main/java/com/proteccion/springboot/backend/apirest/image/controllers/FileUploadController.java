@@ -1,18 +1,25 @@
 package com.proteccion.springboot.backend.apirest.image.controllers;
 
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Date;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.proteccion.springboot.backend.apirest.image.methods.PdfGenerator;
 
 
 @Controller
@@ -70,6 +77,26 @@ public class FileUploadController {
 		return "status";
 	}
 	
+	@GetMapping("/download")
+    public void downloadFile(HttpServletResponse response) throws IOException {
+		String date="";
+		Date dateNow=new Date();
+		date=dateNow+"";
+		
+		PdfGenerator generator = new PdfGenerator();
+        byte[] pdfReport = generator.getPDF(builder.toString()).toByteArray();
+
+        String mimeType =  "application/pdf";
+        response.setContentType(mimeType);
+        
+        response.setHeader("Content-Disposition", String.format("attachment; filename=\"%s\"", "ArchivoGenerado "+date+".pdf"));
+
+        response.setContentLength(pdfReport.length);
+
+        ByteArrayInputStream inStream = new ByteArrayInputStream( pdfReport);
+
+        FileCopyUtils.copy(inStream, response.getOutputStream());
+    }
 	
 
 }
