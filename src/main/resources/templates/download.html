@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+    <title>Spring MVC</title></head>
+<body>
+<div class="form-container">
+    
+
+    <h1>Clic en el link para descarga archivo.</h1><br/><br/>
+
+    <a href="/download">Descargar archivo</a>
+    
+    <br/>
+    
+    <h1>Resultado de la carga</h1>
+	<div th:if="${message}">
+		<h2 th:text="${message}"></h2>
+	</div>
+</div>
+</body>
+</html>
