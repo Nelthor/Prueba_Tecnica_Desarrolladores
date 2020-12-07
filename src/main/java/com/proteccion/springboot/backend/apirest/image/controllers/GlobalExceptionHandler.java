@@ -1,4 +1,4 @@
-package com.proteccion.springboot.backend.apirest.image;
+package com.proteccion.springboot.backend.apirest.image.controllers;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
