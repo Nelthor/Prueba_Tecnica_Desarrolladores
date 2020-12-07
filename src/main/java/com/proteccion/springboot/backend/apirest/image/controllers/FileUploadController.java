@@ -36,7 +36,7 @@ public class FileUploadController {
 
 	@PostMapping("/upload")
 	public String uploadFile(@RequestParam("file") MultipartFile file, RedirectAttributes attributes) throws IOException {
-        
+        	builder.setLength(0);
 		if(file==null || file.isEmpty()) {
 			attributes.addFlashAttribute("message", "Por favor seleccione un archivo");
 			return "redirect:status";
